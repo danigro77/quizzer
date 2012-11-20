@@ -1,0 +1,7 @@
+<%= link_to "New Quiz", "#" %>
+<h3>All my Quizzes</h3>
+<ul>
+	<% @quizzes.each do |quiz| %>
+		<li><%= quiz.name %></li>
+	<% end %>
+</ul>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div id="header">
+		<h1>Quiz</h1>
+		<p>
+			<%= link_to "Sign up", new_user_path %> |
+			<%= link_to "Sign in", new_session_path %>
+		</p>
+	</div>
+
+	<%= yield %>
+	
+	<div id="footer">
+		
+	</div>
+
+</body>
+</html>
