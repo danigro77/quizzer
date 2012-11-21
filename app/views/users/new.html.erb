@@ -26,7 +26,12 @@
 	  <%= f.radio_button :role, 'teacher' %>
 	  <%= label :role, 'Teacher' %>
 	</div>	
-	
+
+	<div class="field">
+		<%= f.label :teacher_id, "Select your teacher" %><br />
+		<%= f.collection_select :teacher_id, @teachers, :id, :name %>
+	</div>
+
 	<%= f.submit %>
 	
 <% end %>

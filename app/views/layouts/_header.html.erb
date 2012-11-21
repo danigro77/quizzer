@@ -1,0 +1,11 @@
+<div id="header">
+	<h1>Quiz</h1>
+	<p class="nav-bar">
+		<% if session[:user_id] == nil %>
+			<%= link_to "Sign up", new_user_path %> |
+			<%= link_to "Sign in", new_session_path %>
+		<% else %>
+			<%= link_to "Sign out", '/logout' %>
+		<% end %>
+	</p>
+</div>

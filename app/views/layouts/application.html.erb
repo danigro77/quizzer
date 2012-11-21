@@ -7,13 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<div id="header">
-		<h1>Quiz</h1>
-		<p>
-			<%= link_to "Sign up", new_user_path %> |
-			<%= link_to "Sign in", new_session_path %>
-		</p>
-	</div>
+	<%= render 'layouts/header' %>
 
 	<%= yield %>
 	

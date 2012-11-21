@@ -5,7 +5,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string  :email
       t.string  :password_digest
       t.string  :role
+      
       t.integer :teacher_id
+      
       t.timestamps
     end
   end
