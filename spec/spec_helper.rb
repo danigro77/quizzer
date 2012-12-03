@@ -1,5 +1,11 @@
 require 'rubygems'
 require 'spork'
+require 'capybara/rspec'
+require 'factory_girl'
+# require 'database_cleaner'
+
+# DatabaseCleaner[:active_record].strategy = :truncation
+
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -58,6 +64,7 @@ require 'rspec/autorun'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.include(FactoryGirl::Syntax::Methods)
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -84,4 +91,18 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+  
+  # config.before(:suite) do
+  #   DatabaseCleaner.strategy = :transaction
+  #   DatabaseCleaner.clean_with(:truncation)
+  # end
+  # 
+  # config.before(:each) do
+  #   DatabaseCleaner.start
+  # end
+  # 
+  # config.after(:each) do
+  #   DatabaseCleaner.clean
+  # end
+  
 end

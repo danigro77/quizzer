@@ -11,15 +11,39 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120044301) do
+ActiveRecord::Schema.define(:version => 20121203173422) do
+
+  create_table "answers", :force => true do |t|
+    t.string   "text"
+    t.boolean  "correct",     :default => false
+    t.integer  "question_id"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "questions", :force => true do |t|
+    t.string   "text"
+    t.integer  "user_id"
+    t.integer  "quiz_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "quizzes", :force => true do |t|
     t.string   "name"
     t.integer  "num_answers"
-    t.boolean  "active"
+    t.boolean  "active",      :default => false
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "responses", :force => true do |t|
+    t.integer  "score"
+    t.integer  "user_id"
+    t.integer  "answer_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

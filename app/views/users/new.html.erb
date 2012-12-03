@@ -1,37 +1,3 @@
 <h2>Sign up</h2>
 
-<%= form_for @user do |f| %>
-
-	<%= render "layouts/error_messages", :object => @user %>
-	
-	<div class="field">	
-		<%= f.label :name %><br />
-		<%= f.text_field :name %>
-	</div>
-	<div class="field">		
-		<%= f.label :email %><br />
-		<%= f.text_field :email %>
-	</div>
-	<div class="field">	
-		<%= f.label :password %><br />
-		<%= f.password_field :password %>
-	</div>
-	<div class="field">	
-		<%= f.label :password_confirmation %><br />
-		<%= f.password_field :password_confirmation %>
-	</div>
-	<div class="field">	
-		<%= f.radio_button :role, 'student', :checked => true %> 
-		<%= label :role, 'Student' %>
-	  <%= f.radio_button :role, 'teacher' %>
-	  <%= label :role, 'Teacher' %>
-	</div>	
-
-	<div class="field">
-		<%= f.label :teacher_id, "Select your teacher" %><br />
-		<%= f.collection_select :teacher_id, @teachers, :id, :name %>
-	</div>
-
-	<%= f.submit %>
-	
-<% end %>
+<%= render 'form' %>

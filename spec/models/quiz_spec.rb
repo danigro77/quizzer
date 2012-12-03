@@ -24,6 +24,9 @@ describe Quiz do
       it "should has false as default value" do
         my_quiz.active.should be_false
       end
+      it "should not be nil" do
+        my_quiz.active.should_not be_nil
+      end
       it "should be true if set to true" do
         my_quiz.active = true
         my_quiz.active.should be_true

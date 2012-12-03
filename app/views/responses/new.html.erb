@@ -1,0 +1,13 @@
+<h2>Quiz - <%= @quiz.name %></h2>
+
+<% @quiz.questions.each do |question| %>
+	<%= question.text %>
+	
+	
+	<%= form_for [current_user, @response] do |f| %>												<!-- TODO: not working -->
+		<% question.answers.each do |answer| %>
+			<%= f.radio_button :answer_id, answer.id %> <%= answer.text %>
+		<% end %>
+		<%= f.submit "Answer", :class => "answer_button" %>
+	<% end %>
+<% end %>

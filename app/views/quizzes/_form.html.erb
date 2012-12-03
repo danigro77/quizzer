@@ -1,0 +1,22 @@
+<%= form_for [current_user, @quiz] do |f| %>
+
+	<%= render "layouts/error_messages", :object => @quiz %>
+	
+	<div class="field">	
+		<%= f.label :name %><br />
+		<%= f.text_field :name %>
+	</div>
+	<div class="field">
+		<%= f.label :num_answers, "How many answers should be created per student?" %><br />
+		<%= f.select :num_answers, (2..6).to_a %>
+	</div>
+	<div class="field">	
+		<%= f.radio_button :active, false, :checked => true %> 
+		<%= label :role, 'Keep quiz inactive' %><br />
+	  <%= f.radio_button :active, true %>
+	  <%= label :role, 'Activate the Quiz' %>
+	</div>	
+	
+	<%= f.submit %>
+	
+<% end %>

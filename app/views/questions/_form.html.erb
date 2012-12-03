@@ -1,0 +1,18 @@
+<%= form_for [@quiz, @question] do |f| %>
+	
+	<%= render "layouts/error_messages", :object => @question %>
+
+  <div class="field">
+    <%= f.label :text, "Your Question" %><br />
+    <%= f.text_field :text %>
+  </div>
+	<div class="field answer_form">
+  	<%= f.fields_for :answers do |ff| %>
+  	<div class="answer_field">
+	    <%= ff.label :text, "Answer" %><br />
+	    <%= ff.text_field :text %>
+	  </div>
+		<% end %>
+	</div>
+  <%= f.submit %>
+<% end %>
