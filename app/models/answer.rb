@@ -6,6 +6,5 @@ class Answer < ActiveRecord::Base
   belongs_to :question
   
   validates :text, :presence => true
-  validates :question_id, :presence => true
-  validates_presence_of :correct
+  #validates :question, :presence => true
 end

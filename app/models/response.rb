@@ -8,17 +8,11 @@ class Response < ActiveRecord::Base
 
   belongs_to :user   
   belongs_to :answer
-  
-  has_one :score
-  
+    
   private 
   
-    def get_score           # TODO check if work
-      if answer.correct
-        score = 1
-      else
-        score = 0
-      end
-    end
+  def get_score
+    self.score = answer.correct? ? 1 : 0
+  end
 
 end

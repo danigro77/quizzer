@@ -5,8 +5,9 @@ Quizer::Application.routes.draw do
   resources :sessions, :only => [:new, :create]
   
   resources :users do
-    resources :quizzes
-    resources :responses, :only => [:new, :create]
+    resources :quizzes do
+      resources :responses, :only => [:new, :create]
+    end
   end
   
   resources :quizzes, :only => [] do

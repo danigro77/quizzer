@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-  
+  skip_filter :authenticated?, :except => :destroy 
+
   def new
   end
   

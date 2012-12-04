@@ -8,6 +8,11 @@ class Question < ActiveRecord::Base
   belongs_to :quiz
   
   validates :text, :presence => true
-  validates :user_id, :presence => true
-  validates :quiz_id, :presence => true
+  validates :user, :presence => true
+  validates :quiz, :presence => true
+
+
+  def answers_to_build
+  	self.quiz.num_answers - self.answers.count
+  end
 end

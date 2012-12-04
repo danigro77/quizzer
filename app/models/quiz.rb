@@ -14,10 +14,6 @@ class Quiz < ActiveRecord::Base
     errors.add(:quiz, "- Only teachers are allowed to initiate quizzes.") unless self.user.role == "teacher"
   end
   
-  def created_one_question?(current_user)
-    self.questions.map(&:user).include?(current_user)
-  end
-  
   def self.active?
     self.active
   end

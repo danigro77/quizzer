@@ -7,12 +7,14 @@
     <%= f.text_field :text %>
   </div>
 	<div class="field answer_form">
-  	<%= f.fields_for :answers do |ff| %>
-  	<div class="answer_field">
-	    <%= ff.label :text, "Answer" %><br />
-	    <%= ff.text_field :text %>
-	  </div>
-		<% end %>
+		<% @question.answers.each do |answer| %>
+	  	<%= f.fields_for :answers, answer do |ff| %>
+		  	<div class="answer_field">
+			    <%= ff.label :text, "Answer" %><br />
+			    <%= ff.text_field :text %>
+			  </div>
+			<% end %>
+		<%end%>
 	</div>
   <%= f.submit %>
 <% end %>

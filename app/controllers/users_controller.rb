@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_filter :authenticated?
   
   def new
     @user = User.new

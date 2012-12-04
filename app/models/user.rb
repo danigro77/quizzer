@@ -16,4 +16,20 @@ class User < ActiveRecord::Base
   
 
   
+  def question_for_quiz(quiz)
+    quiz.questions.where(:user_id => self.id).first    
+  end  
+
+  def student?
+    self.role == "student"
+  end
+
+  def teacher?
+    self.role == "teacher"
+  end
+
+  def created_one_question_for?(quiz)
+    quiz.questions.map(&:user).include?(self)
+  end
+  
 end

@@ -8,37 +8,37 @@
 		<tr>
 			<td><%= quiz.name %></td>
 			<td>
-				<% unless quiz.created_one_question?(current_user) %>
+				<% unless current_user.created_one_question_for? quiz %>
 					<%= link_to "New Question", new_quiz_question_path(quiz) %>
 				<% else %>
-					<%= link_to "Edit Question", "#" %>
+					<%= link_to "Edit Question", edit_quiz_question_path(quiz, current_user.question_for_quiz(quiz)) %>
 				<% end %>
 			</td>
 			<td>
 				<% if quiz.active? %>
-					<%= link_to "Take Quiz", new_user_response_path(current_user) %>
+					<%= link_to "Take Quiz", new_user_quiz_response_path(current_user, quiz) %>
 				<% else %>
 					Quiz is locked
 				<% end %>
 			</td>
 			<td>
-				<% if is_teacher?(current_user) %>
+				<% if current_user.teacher? %>
 					class average
-				<% elsif is_student?(current_user) %>	
+				<% elsif current_user.student? %>	
 					score
 				<% end %>
 			</td>
 			<td>
-				<% if is_teacher?(current_user) %>
+				<% if current_user.teacher? %>
 					<%= link_to "Edit quiz", edit_user_quiz_path(current_user, quiz) %>
-				<% elsif is_student?(current_user) %>	
+				<% elsif current_user.student? %>	
 					n/a
 				<% end %>
 			</td>
 			<td>
-				<% if is_teacher?(current_user) %>
+				<% if current_user.teacher? %>
 					<%= link_to "Delete quiz", user_quiz_path(current_user, quiz), :method => :delete %>
-				<% elsif is_student?(current_user) %>	
+				<% elsif current_user.student? %>	
 					n/a
 				<% end %>
 			</td>

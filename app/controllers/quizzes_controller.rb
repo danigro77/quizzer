@@ -1,15 +1,7 @@
 class QuizzesController < ApplicationController
-  # before_filter :authenticate
   
   def index
-    p "DEBUG: #{current_user}"
-    if is_student?(current_user)
-      @quizzes = current_user.teacher.quizzes
-    elsif is_teacher?(current_user)
-      @quizzes = current_user.quizzes
-    else
-      redirect_to new_user_path
-    end
+    @quizzes = current_user.teacher? ? current_user.quizzes : current_user.teacher.quizzes
   end
   
   def new
