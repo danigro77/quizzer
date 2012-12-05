@@ -1,9 +1,11 @@
 var Student = {
 	init: function() {
 		$(".correct_answer").hide();
+		var student = this;
 		$(".answer_on_click").on("click", function(event) { // TODO: event/this/toggle
 			event.preventDefault();
-			this.toggleAnswer();
+			// console.log(this);
+			student.toggleAnswer();
 			});
 	},
 	toggleAnswer: function() {

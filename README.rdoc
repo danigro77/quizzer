@@ -1,1 +1,8 @@
 ==Quiz
+[Daniela Grossmann - Nov, 2012]
+personal project during Dev Bootcamp
+
+- a teacher initializes a quiz for a lesson subject, f.e. "The Stone Ages"
+- after the lesson each student and the teacher can create one question (including multiple choice answers)
+- when everyone has submitted his question, all can take the quiz.
+- the quiz can only be taken once, but the student can see all questions including the correct answers.
