@@ -10,11 +10,13 @@ class QuestionsController < ApplicationController
   def create
     @question = @quiz.questions.build params[:question]
     @question.user = current_user
-    if @question.save                                     # TODO: Does not save
+    
+    if @question.save 
+      @question.first_answer_correct
       redirect_to user_quizzes_path(@quiz.user_id)
     else
       flash[:notice] = "Unable to create a new question."
-      render :new                                           # TODO: creates two new answers
+      render :new 
     end
   end
 

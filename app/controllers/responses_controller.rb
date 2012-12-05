@@ -9,8 +9,16 @@ class ResponsesController < ApplicationController
   
   def create
     answers = Answer.find params[:answer_ids].values
-    answers.each { |a| current_user.responses.build(:answer => a).save }
-    redirect_to root_url
+    responses = []
+    answers.each do |a| 
+      responses << current_user.responses.build(:answer => a)
+    end
+    responses.each do |r|
+      r.quiz = Quiz.find(params[:quiz_id])
+      
+      r.save
+    end
+    redirect_to user_quizzes_path(current_user)
   end
 
 end

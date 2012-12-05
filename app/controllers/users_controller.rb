@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     @user = User.new params[:user]
     if @user.save
       flash[:notice] = "Welcome #{@user.name}"
+      session[:user_id] = @user.id
       redirect_to user_quizzes_path(@user)
     else
       render :new

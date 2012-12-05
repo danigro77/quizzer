@@ -4,6 +4,10 @@ class QuizzesController < ApplicationController
     @quizzes = current_user.teacher? ? current_user.quizzes : current_user.teacher.quizzes
   end
   
+  def show
+    @quiz = Quiz.find(params[:id])
+  end
+  
   def new
     @quiz = current_user.quizzes.build
   end
