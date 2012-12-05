@@ -1,0 +1,15 @@
+<%= form_for [current_user, @quiz, @response] do |f| %>
+	
+	<% @quiz.questions.shuffle.each do |question| %>
+	<div class="question_block">
+		<p class="question_text"><%= question.text %></p>
+		<div class="answer_block">
+		<% question.answers.shuffle.each do |answer| %>	
+			<p class="answer_text"><%= radio_button_tag "answer_ids[#{question.id}]", answer.id %> <%= answer.text %></p>
+		<% end %>
+		</div>
+	</div>
+	<% end %>
+	
+	<%= f.submit "Answer", :class => "answer_button" %>
+<% end %>

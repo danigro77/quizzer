@@ -1,0 +1,22 @@
+<h2>Review quiz <%= @quiz.name %></h2>
+
+<div class="statistic">
+	<p>Taken on: <%= @quiz.date %></p>
+	<p>My Score: <%= @quiz.user_score(current_user) %></p>
+</div>
+
+<div>
+	<ol>
+	<% @quiz.questions.each do |question| %>
+		
+		<li>
+			<%= question.text %> 
+			<%= link_to "Show answer?", "#", :class => "answer_on_click" %> 
+			<span class="correct_answer">
+				<%= question.answers.where("correct = ?", true).first.text %>
+			</span>
+		</li>
+		
+	<% end %>
+	</ol>
+</div>

@@ -1,10 +1,5 @@
-<h2>Quiz - <%= @quiz.name %></h2>
-<%= form_for [current_user, @quiz, @response] do |f| %>
-	<% @quiz.questions.each do |question| %>
-		<%= question.text %>
-		<% question.answers.each do |answer| %>	
-			<%= radio_button_tag "answer_ids[#{question.id}]", answer.id %> <%= answer.text %>
-		<% end %>
-	<% end %>
-	<%= f.submit "Answer", :class => "answer_button" %>
-<% end %>
+<h2><%= @quiz.name %></h2>
+
+<div class="content_text">
+	<%= render "form" %>
+</div>

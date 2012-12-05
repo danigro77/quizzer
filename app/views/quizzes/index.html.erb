@@ -1,47 +1,54 @@
 <% if is_teacher?(current_user) %>
-	<%= link_to "New Quiz", new_user_quiz_path(current_user) %>
+	<%= link_to "New Quiz", new_user_quiz_path(current_user), :class => "teacher_link" %>
 <% end %>
+<h2>All my Quizzes</h2>
+<div class="content_text">
+	<table>
+		<% @quizzes.each do |quiz| %>
+			<tr>
+				<th><%= quiz.name %></th>
+				<td>
+					<% unless current_user.created_one_question_for? quiz %>
+						<%= link_to "New Question", new_quiz_question_path(quiz) %>
+					<% else %>
+						<%= link_to "Edit Question", edit_quiz_question_path(quiz, current_user.question_for_quiz(quiz)) %>
+					<% end %>
+				</td>
+				<td>
+					<% if quiz.active? && !quiz.taken?(current_user) %>
+						<%= link_to "Take Quiz", new_user_quiz_response_path(current_user, quiz) %>
+					<% elsif quiz.taken?(current_user) && quiz.active? %>
+						Quiz taken on <%= quiz.date %>
+					<% else %>
+						<% if current_user.teacher? && quiz.all_questions? %>
+							<%= link_to "Activate Quiz", edit_user_quiz_path(current_user, quiz) %>
+						<% elsif current_user.teacher? %>
+							<%= quiz.status_questions %> submitted
+						<% else %>
+							Quiz is locked
+						<% end %>
+					<% end %>
+				</td>
+				<% if current_user.student? && quiz.taken?(current_user) %>
+					<td>
+						My score: <%= quiz.user_score(current_user) %>
+					</td>
+					<td>
+						<%= link_to "View questions again", user_quiz_path(current_user, quiz) %>
+					</td>
+				<% elsif current_user.teacher? %>
+					<td>
+						class average
+					</td>	
+					<td>
+						<%= link_to "Edit quiz", edit_user_quiz_path(current_user, quiz) %>
+					</td>
+					<td>
+						<%= link_to "Delete quiz", user_quiz_path(current_user, quiz), :method => :delete %>
+					</td>
+				<% end %>
+			</tr>
+		<% end %>
+	</table>
 
-<h3>All my Quizzes</h3>
-<table>
-	<% @quizzes.each do |quiz| %>
-		<tr>
-			<td><%= quiz.name %></td>
-			<td>
-				<% unless current_user.created_one_question_for? quiz %>
-					<%= link_to "New Question", new_quiz_question_path(quiz) %>
-				<% else %>
-					<%= link_to "Edit Question", edit_quiz_question_path(quiz, current_user.question_for_quiz(quiz)) %>
-				<% end %>
-			</td>
-			<td>
-				<% if quiz.active? %>
-					<%= link_to "Take Quiz", new_user_quiz_response_path(current_user, quiz) %>
-				<% else %>
-					Quiz is locked
-				<% end %>
-			</td>
-			<td>
-				<% if current_user.teacher? %>
-					class average
-				<% elsif current_user.student? %>	
-					score
-				<% end %>
-			</td>
-			<td>
-				<% if current_user.teacher? %>
-					<%= link_to "Edit quiz", edit_user_quiz_path(current_user, quiz) %>
-				<% elsif current_user.student? %>	
-					n/a
-				<% end %>
-			</td>
-			<td>
-				<% if current_user.teacher? %>
-					<%= link_to "Delete quiz", user_quiz_path(current_user, quiz), :method => :delete %>
-				<% elsif current_user.student? %>	
-					n/a
-				<% end %>
-			</td>
-		</tr>
-	<% end %>
-</table>
+</div>
