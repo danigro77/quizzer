@@ -1,0 +1,11 @@
+div.question_block {
+	margin: 5px 0;
+	background-color: fff;
+	.question_text {
+		font-size: 1.1em;
+		border-bottom: black 1px solid;
+	}
+	.answer_block {
+		margin-left: 50px;
+	}
+}

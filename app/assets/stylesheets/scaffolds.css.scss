@@ -1,6 +1,15 @@
+$highlightColor: #38688A;
+$backgroundColor: #86949E; 
+
+html, body {
+	margin: 0;
+	padding: 10px;
+	background: $backgroundColor;
+}
+
 body {
-  background-color: #fff;
-  color: #333;
+  background: url("background.png"), #fff;
+  color: #111;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
@@ -20,13 +29,20 @@ pre {
 
 a {
   color: #000;
+	text-decoration: none;
   &:visited {
-    color: #666;
+    color: #333;
   }
   &:hover {
     color: #fff;
     background-color: #000;
   }
+}
+
+a.teacher_link {
+	float: right;
+	text-align: right;
+	margin-right: 20px;
 }
 
 div {
