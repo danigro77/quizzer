@@ -1,20 +1,18 @@
 var Student = {
 	init: function() {
 		$(".correct_answer").hide();
-		var student = this;
-		$(".answer_on_click").on("click", function(event) { // TODO: event/this/toggle
-			event.preventDefault();
-			// console.log(this);
-			student.toggleAnswer();
-			});
+		$(".question-list").on("click", 'a.answer_on_click', this.toggleAnswer);
 	},
-	toggleAnswer: function() {
-		if ($(".answer_on_click").text() === "Show answer?") {
-			$(".correct_answer").show();
-			$(".answer_on_click").text("Hide answer?");
+	
+	toggleAnswer: function(event) {
+		event.preventDefault();
+		var $self = $(this);
+		if ($self.text() === "Show answer?") {
+			$self.siblings('.correct_answer').show()
+			$self.text("Hide answer?");
 		} else {
-			$(".correct_answer").hide();
-			$(".answer_on_click").text("Show answer?");
+			$self.siblings('.correct_answer').hide()
+			$self.text("Show answer?");
 		}
 	}
 }

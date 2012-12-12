@@ -15,7 +15,7 @@ class Quiz < ActiveRecord::Base
     errors.add(:quiz, "- Only teachers are allowed to initiate quizzes.") unless self.user.role == "teacher"
   end
   
-  def self.active?
+  def active?
     self.active
   end
   
@@ -44,11 +44,23 @@ class Quiz < ActiveRecord::Base
     self.update
   end
   
-  def user_score(user, sum = 0)
-    user_responses = self.responses.where("user_id = ?", user)
-    p user_responses
-    user_responses.each { |response| sum += response.score }
+  def student_score(student, sum = 0)
+    student_responses = self.responses.where("user_id = ?", student)
+    student_responses.each { |response| sum += response.score }
     "#{sum}/#{count_all_questions}"
+  end
+  
+  def sum_all_user_score(sum = 0)
+    self.responses.each { |response| sum += response.score }
+    sum
+  end
+  
+  def average_score
+    "#{sum_all_user_score/self.user.students.count}/#{count_all_questions}"
+  end
+  
+  def sum_all_taken_quizzes
+    "#{self.responses.count/self.user.students.count}/#{self.user.students.count}"
   end
   
   def date

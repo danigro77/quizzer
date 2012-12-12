@@ -12,13 +12,5 @@ class ApplicationController < ActionController::Base
       @current_user ||= User.find(session[:user_id]) if session[:user_id]       # TODO: does not work everywhere
     end
     
-    def is_teacher?(user)
-      user.role == "teacher"
-    end
-
-    def is_student?(user)
-      user.role == "student"
-    end
-
-    helper_method :current_user, :is_teacher?, :is_student?
+    helper_method :current_user
 end

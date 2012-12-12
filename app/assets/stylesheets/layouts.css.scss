@@ -1,10 +1,27 @@
 $highlightColor: #38688A;
 $backgroundColor: #86949E; 
 
+@mixin topBorderBox($px) {
+	-webkit-border-top-left-radius: $px;
+	-webkit-border-top-right-radius: $px;
+	-moz-border-radius-topleft: $px;
+	-moz-border-radius-topright: $px;
+	border-top-left-radius: $px;
+	border-top-right-radius: $px;
+}
+
+@mixin bottomBorderBox($px) {
+	-webkit-border-bottom-right-radius: $px;
+	-webkit-border-bottom-left-radius: $px;
+	-moz-border-radius-bottomright: $px;
+	-moz-border-radius-bottomleft: $px;
+	border-bottom-right-radius: $px;
+	border-bottom-left-radius: $px;
+}
+
 html, body {
 	margin: 0;
 	padding: 10px;
-	background: $backgroundColor;
 }
 
 div#body_header, div#body_footer {
@@ -18,10 +35,11 @@ div#body_header, div#body_footer {
 	  &:hover {
 	    color: #fff;
 	  }
-	}
+	}	
 }
 
 div#body_header {
+	@include topBorderBox(7px);
 	padding: 5px;
 	height: 50px;
 	h1 {
@@ -36,10 +54,12 @@ div#body_header {
 }
 
 div#body_content {
+
 	h2 {
 		clear: both;
 		background: $backgroundColor;
 		padding: 5px 0 5px 20px;
+		
 	}
 	.content_text {
 		padding: 0 20px;
@@ -68,6 +88,7 @@ div#body_content {
 }
 
 div#body_footer {
+	@include bottomBorderBox(7px);
 	color: #fff;
 	font-size: 0.85em;
 	text-align: right;
