@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Quizer::Application.load_tasks
+Quizzer::Application.load_tasks

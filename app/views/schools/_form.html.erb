@@ -1,0 +1,41 @@
+<%= form_for @school %>
+	<%= render "layouts/error_messages", :object => @school %>
+	
+  <div class="field">
+    <%= f.label :name, "Name of the School*" %><br />
+    <%= f.text_field :name %>
+  </div>	
+  <div class="field">
+    <%= f.label :address_1, "Address 1*" %><br />
+    <%= f.text_field :address_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :address_2, "Address 2" %><br />
+    <%= f.text_field :address_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :city, "City*" %><br />
+    <%= f.text_field :city %>
+  </div>
+  <div class="field">
+    <%= f.label :state, "State (for School from the USA)" %><br />
+    <%= f.text_field :State %>
+  </div>
+  <div class="field">
+    <%= f.label :zip, "Zipcode*" %><br />
+    <%= f.text_field :zip %>
+  </div>
+  <div class="field">
+    <%= f.label :url, "Schools URL*" %><br />
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :email, "Contact email" %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :contact, "Contact name" %><br />
+    <%= f.text_field :contact %>
+  </div>
+	<%= f.submit %>
+<% end %>

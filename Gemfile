@@ -5,11 +5,12 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'sqlite3', '1.3.6'
   platform :ruby_19 do
     gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
     gem 'ruby-debug-base19x', '~> 0.11.30.pre4'
@@ -34,6 +35,10 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
   gem 'quiet_assets'
+end
+
+group :production do 
+  gem "pg", "~> 0.14.1"
 end
 
 gem 'jquery-rails'

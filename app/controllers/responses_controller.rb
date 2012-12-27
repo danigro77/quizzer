@@ -15,7 +15,6 @@ class ResponsesController < ApplicationController
     end
     responses.each do |r|
       r.quiz = Quiz.find(params[:quiz_id])
-      
       r.save
     end
     redirect_to user_quizzes_path(current_user)

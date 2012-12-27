@@ -1,8 +1,10 @@
-Quizer::Application.routes.draw do
+Quizzer::Application.routes.draw do
   root :to => 'main#index'
   
   get "/logout", :to => "sessions#destroy"
   resources :sessions, :only => [:new, :create]
+  
+  resources :schools, :only => [:new, :create, :edit, :update]
   
   resources :users do
     resources :quizzes do
