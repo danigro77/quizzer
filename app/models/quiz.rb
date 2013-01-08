@@ -1,30 +1,44 @@
 class Quiz < ActiveRecord::Base
-  attr_accessible :name, :num_answers, :active, :user, :questions, :responses
+  MIN_ANSWERS = 2
+  MAX_ANSWERS = 6
+
+  attr_accessible :name, :num_answers, :active, :questions, :responses, :course, :course_id, :excuses
   
   validates :name, :presence => true
-  validates :num_answers, :presence => true
-  validates :user, :presence => true
-  validate  :valid_user
+  validates :num_answers, :numericality => {:only_integr => true, :greater_than_or_equal_to => MIN_ANSWERS, :less_than_or_equal_to => MAX_ANSWERS}
 
-  belongs_to :user   
+  belongs_to :course   
   
   has_many :questions, :dependent => :destroy  
   has_many :responses
+  has_many :excuses
 
-  def valid_user
-    errors.add(:quiz, "- Only teachers are allowed to initiate quizzes.") unless self.user.role == "teacher"
+  def num_excused
+    excuses.count
   end
   
   def active?
-    self.active
+    active
   end
   
   def taken?(user)        #TODO - find a way to check for taken quiz
-    self.responses.where("user_id = ?", user).count > 0
+    responses.where("user_id = ?", user).count > 0
   end
   
-  def all_questions?
-    self.questions.count == User.find(self.user).students.count + 1
+  def students
+    course.users.where(:role => "student")
+  end
+  
+  def teachers
+    course.users.where(:role => "teacher")
+  end
+  
+  def members
+    course.users
+  end
+  
+  def all_questions_created?
+    questions.count == (course.users.count - num_excused)
   end
   
   def status_questions
@@ -32,40 +46,45 @@ class Quiz < ActiveRecord::Base
   end
   
   def count_all_questions
-    if self.user.role == "teacher"
-      User.find(self.user).students.count + 1
-    elsif self.user.role == "student"
-      User.find(self.user.teacher).students.count + 1
-    end
-  end
-  
-  def activate
-    self.active = true
-    self.update
+    course.users.count
   end
   
   def student_score(student, sum = 0)
-    student_responses = self.responses.where("user_id = ?", student)
+    student_responses = responses.where("user_id = ?", student)
     student_responses.each { |response| sum += response.score }
     "#{sum}/#{count_all_questions}"
   end
   
   def sum_all_user_score(sum = 0)
-    self.responses.each { |response| sum += response.score }
+    responses.each { |response| sum += response.score }
     sum
   end
   
   def average_score
-    "#{sum_all_user_score/self.user.students.count}/#{count_all_questions}"
+    if students.empty?
+      "(no)"
+    else
+      "#{sum_all_user_score/students.count}/#{count_all_questions}"
+    end
   end
   
   def sum_all_taken_quizzes
-    "#{self.responses.count/self.user.students.count}/#{self.user.students.count}"
+    if students.empty?
+      "(no)"
+    else
+      "#{responses.count/students.count}/#{students.count}"
+    end
   end
   
-  def date
-    timestamp = self.responses.where("user_id = ?", self.user).first.created_at
+  def date(user)
+    timestamp = responses.where("user_id = ?", user).first.created_at
     "#{timestamp.month}/#{timestamp.day}/#{timestamp.year}"
   end
+  
+
+  # def method 
+  # 
+  #   questions.where(:user_id => user.id).first
+  # end
 
 end

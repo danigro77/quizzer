@@ -1,5 +1,17 @@
-<h2>Welcome</h2>
-<div class="content_text">
-	<p>Hello there, please sign in or up!</p>
-	<p>If your school does not exist yet, please create it. (Not sure? Check it here)</p>
-</div>
+<% if current_user %>
+	<h2>Welcome, <%= current_user.name %>!</h2>
+	<div class="content_text">
+		<% if current_user.teacher? %>
+			<p>Hey, teacher!</p>
+		<% elsif current_user.student? %>
+			<p>Hey, student!</p>
+		<% else %>
+			<p>Hey, stranger! <%= link_to "Please sign in!", new_session_path %> </p>
+		<% end %>
+	</div>
+<% else %>
+	<h2>Welcome</h2>
+	<div class="content_text">
+		<p>Hey, stranger! <%= link_to "Please sign in!", new_session_path %> </p>
+	</div>
+<% end %>

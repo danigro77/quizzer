@@ -12,7 +12,6 @@ class QuestionsController < ApplicationController
     @question.user = current_user
     
     if @question.save 
-      @question.first_answer_correct
       redirect_to user_quizzes_path(@quiz.user_id)
     else
       flash[:notice] = "Unable to create a new question."
@@ -27,7 +26,7 @@ class QuestionsController < ApplicationController
   def update
     @question = Question.find params[:id]
     if @question.update_attributes params[:question]
-      redirect_to user_quizzes_path(@quiz.user_id)
+      redirect_to user_quizzes_path(current_user, @quiz)
     else
       flash[:notice] = "Unable to edit the question."
       render :edit  
@@ -41,7 +40,6 @@ class QuestionsController < ApplicationController
   end
 
   def can_add_question?
-    redirect_to user_quizzes_path(current_user) if current_user.created_one_question_for? @quiz
+    redirect_to user_quizzes_path(current_user) if @quiz.one_question_from?(current_user)
   end
-  
 end

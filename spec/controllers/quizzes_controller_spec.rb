@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe QuizzesController do
-  let(:teacher1) { create(:teacher) }
-  let(:teacher2) { create(:teacher, :email => "another@teacher.com") }
-  let(:student) { create(:student) }
-  let(:quiz_with_teacher) { create(:quiz_with_teacher_id_1) }
+  let(:course) { create(:course) }
+  let(:teacher) { create(:teacher) }
+  let(:student) { create(:student, :course => course) }
+  let(:quiz) { create(:quiz) }
   
   # after(:each) do
   #   DatabaseCleaner.clean
@@ -19,19 +19,24 @@ describe QuizzesController do
       #         page.should redirect_to new_user_path
       #       end
     end
+    
     context "a student" do
-      it "should see all quizzes of his teacher" do
+      it "should see all quizzes" do
         teacher1
-        quiz_with_teacher
+        quiz
         student
         visit user_quizzes_path(student)
-        page.should have_content ("Important Quiz Teacher")
+        page.should have_content ("Just a quiz")
       end
+      
       it "should not see quizzes of other teachers"
+      
     end
     context "a teacher" do
+      
       it "should see all quizzes initialized by him"
       it "should not see quizzes of other teachers"
+      
     end
   end
   

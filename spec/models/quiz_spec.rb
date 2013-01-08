@@ -1,36 +1,57 @@
 require 'spec_helper'
 
 describe Quiz do
-  let(:my_quiz){ Quiz.create(:name => "Some awesom Quiz", :num_answers => 4 ) }
+  let(:school)        { create(:school) }
+  let(:teacher)       { create(:teacher) }
+  let(:course)        { create(:course, :teacher => teacher, :school => school) }
+  let(:inactive_quiz) { create(:quiz, :course => course) }
+  let(:active_quiz)   { create(:quiz, :course => course, :active => true) }
   
   describe "validation" do
-    it "should be valid" do
-      my_quiz.should be_valid
+    it "should have a valid factory" do
+      inactive_quiz.should be_valid
     end
     
     context "#name" do
       it "schould be false if not present" do
-        my_quiz.name = ""
-        my_quiz.should_not be_valid
+        inactive_quiz.name = ""
+        inactive_quiz.should_not be_valid
       end
     end
     context "#num_answers" do
-      it "schould be false if not present" do
-        my_quiz.num_answers = ""
-        my_quiz.should_not be_valid
+      it "should be false if not present" do
+        inactive_quiz.num_answers = ""
+        inactive_quiz.should_not be_valid
+      end
+      it "should be invalid with only one answer" do
+        inactive_quiz.num_answers = 1
+        inactive_quiz.should_not be_valid
       end
     end
+    
     context "#active" do
       it "should has false as default value" do
-        my_quiz.active.should be_false
+        inactive_quiz.active.should be_false
       end
       it "should not be nil" do
-        my_quiz.active.should_not be_nil
+        inactive_quiz.active.should_not be_nil
       end
       it "should be true if set to true" do
-        my_quiz.active = true
-        my_quiz.active.should be_true
+        # active_quiz = inactive_quiz.active = true
+        active_quiz.active.should be_true
       end
     end
+    
+  end
+  
+  describe "methods" do
+    
+    context "#active?" do
+      it "returns the active status of a quiz" do
+        inactive_quiz.active?.should be_false
+        active_quiz.active?.should be_true
+      end
+    end
+    
   end
 end

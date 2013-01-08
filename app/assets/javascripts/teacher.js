@@ -7,14 +7,20 @@ var Teacher = {
 		var $self = $(this);
 		if ($('#teacher_radio').is (':checked')) {
 			// debugger
-			$('#toggle_teacher_search').hide();
-		} else {
 			$('#toggle_teacher_search').show();
+			$('#toggle_student_search').hide();
+		} else {
+			$('#toggle_teacher_search').hide();
+			$('#toggle_student_search').show();
 		}
 	},
 
 	hideTeacherDefault: function() {
 		if( $('#teacher_radio').is (':checked')) {
+			$('#toggle_teacher_search').show();
+			$('#toggle_student_search').hide();
+		} else {
+			$('#toggle_student_search').show();
 			$('#toggle_teacher_search').hide();
 		}
 	}

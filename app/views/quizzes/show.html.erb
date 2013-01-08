@@ -13,7 +13,7 @@
 			<%= question.text %> 
 			<%= link_to "Show answer?", "#", :class => "answer_on_click" %> 
 			<span class="correct_answer">
-				<%= question.answers.where("correct = ?", true).first.text %>
+				<%= question.correct_answer.text %>
 			</span>
 		</li>
 		

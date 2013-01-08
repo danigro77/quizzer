@@ -2,13 +2,26 @@ Quizzer::Application.routes.draw do
   root :to => 'main#index'
   
   get "/logout", :to => "sessions#destroy"
+  get "/edit", :to => "users#edit"
+  
   resources :sessions, :only => [:new, :create]
   
-  resources :schools, :only => [:new, :create, :edit, :update]
+  resources :schools, :except => [:destroy]
   
   resources :users do
+    resources :courses do
+      member do
+        post "attend"
+        delete "leave"
+      end
+    end
+    
     resources :quizzes do
+      member do
+        post "activate"
+      end
       resources :responses, :only => [:new, :create]
+      resources :excuses
     end
   end
   

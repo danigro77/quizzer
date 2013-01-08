@@ -2,7 +2,7 @@ class CreateAnswers < ActiveRecord::Migration
   def change
     create_table :answers do |t|
       t.string  :text
-      t.boolean :correct
+      t.boolean :correct, :default => false
     
       t.integer :question_id
     

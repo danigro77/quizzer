@@ -12,6 +12,8 @@
 		  	<div class="answer_field">
 			    <%= ff.label :text, "Answer" %><br />
 			    <%= ff.text_field :text %>
+					<%= ff.label :correct, "Correct?" %>
+					<%= ff.check_box :correct %>
 			  </div>
 			<% end %>
 		<%end%>

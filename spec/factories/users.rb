@@ -8,6 +8,8 @@ FactoryGirl.define do
      password               "secure"
      password_confirmation  "secure"
      role                   "teacher"
+     school_id              1
+     # association :school, factory: :school
    end
    
    factory :student, class: User do
@@ -16,8 +18,8 @@ FactoryGirl.define do
       password                "secure"
       password_confirmation   "secure"
       role                    "student"
-      # teacher_id              1                  # does this make sense??!!!!
-       association :teacher, factory: :teacher
+      school_id               1
+      # association :school, factory: :school
    end
    
   

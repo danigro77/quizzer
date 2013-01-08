@@ -1,0 +1,16 @@
+<h2><%= @school.name %></h2>
+<div class="content_text">
+	<table>
+		<% @school.courses.each do |course| %>
+			<tr>
+				<th><%= course.name %></th>
+				<td><%= course.teacher.name %></td>
+				<td><%= course.description_short %></td>
+				<td><%= "#{course.start_date}/#{course.end_date}" %></td>
+				<% unless course.teacher == current_user %>
+					<td><%= link_to "Attend course", attend_user_course_path(current_user, course), :method => :post %></td>
+				<% end %>
+			</tr>
+		<% end %>
+	</table>
+</div>

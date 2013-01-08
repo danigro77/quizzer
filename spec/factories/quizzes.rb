@@ -2,11 +2,11 @@ require 'factory_girl'
 
 FactoryGirl.define do
 
-  factory :quiz_with_teacher_id_1, class: Quiz do
-    name          "A Quiz Teacher"
+  factory :quiz, class: Quiz do
+    name          "Just a quiz"
     num_answers   4
     active        false
-    user_id       1
+    course_id     1
   end
  
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121204224153) do
+ActiveRecord::Schema.define(:version => 20121228040848) do
 
   create_table "answers", :force => true do |t|
     t.string   "text"
@@ -19,6 +19,33 @@ ActiveRecord::Schema.define(:version => 20121204224153) do
     t.integer  "question_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "courses", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "teacher_id"
+    t.integer  "school_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "courses_users", :force => true do |t|
+    t.integer  "course_id"
+    t.integer  "user_id"
+    t.float    "overall_score"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "excuses", :force => true do |t|
+    t.integer  "quiz_id"
+    t.integer  "user_id"
+    t.string   "reason"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "questions", :force => true do |t|
@@ -33,7 +60,7 @@ ActiveRecord::Schema.define(:version => 20121204224153) do
     t.string   "name"
     t.integer  "num_answers"
     t.boolean  "active",      :default => false
-    t.integer  "user_id"
+    t.integer  "course_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
   end
@@ -42,9 +69,24 @@ ActiveRecord::Schema.define(:version => 20121204224153) do
     t.integer  "score"
     t.integer  "user_id"
     t.integer  "answer_id"
+    t.integer  "quiz_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "quiz_id"
+  end
+
+  create_table "schools", :force => true do |t|
+    t.string   "name"
+    t.string   "address_1"
+    t.string   "address_2"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip"
+    t.string   "country"
+    t.string   "url"
+    t.string   "email"
+    t.string   "contact"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -52,7 +94,7 @@ ActiveRecord::Schema.define(:version => 20121204224153) do
     t.string   "email"
     t.string   "password_digest"
     t.string   "role"
-    t.integer  "teacher_id"
+    t.integer  "school_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end

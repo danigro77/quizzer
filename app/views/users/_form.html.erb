@@ -19,15 +19,17 @@
 		<%= f.password_field :password_confirmation %>
 	</div>
 	<div class="field">	
-		<%= f.radio_button :role, 'student', :id => 'student_radio', :checked => true %> 
-		<%= label :role, 'Student' %>
-	  <%= f.radio_button :role, 'teacher', :id => 'teacher_radio' %>
-	  <%= label :role, 'Teacher' %>
+		<%= f.radio_button :role, "student", :id => "student_radio", :checked => true %> 
+		<%= label :role, "Student" %>
+	  <%= f.radio_button :role, "teacher", :id => "teacher_radio" %>
+	  <%= label :role, "Teacher" %>
 	</div>	
-
-	<div class="field" id="toggle_teacher_search">
-		<%= f.label :teacher_id, "Select your teacher" %><br />
-		<%= f.collection_select :teacher_id, User.where(:role => "teacher"), :id, :name %>
+	
+	<div class="field" >
+		<%= f.label :school_id, "Select your school" %><br />
+		<span id="toggle_teacher_search"><%= link_to "(Not there? Create it!)", new_school_path %><br /></span>
+		<span id="toggle_student_search">(Not there? Ask your teacher for help!)<br /></span>
+		<%= f.collection_select :school_id, School.all, :id, :name %>
 	</div>
 
 	<%= f.submit %>

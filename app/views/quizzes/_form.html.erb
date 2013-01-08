@@ -8,8 +8,13 @@
 	</div>
 	<div class="field">
 		<%= f.label :num_answers, "How many answers should be created per student?" %><br />
-		<%= f.select :num_answers, (2..6).to_a %>
+		<%= f.select :num_answers, (Quiz::MIN_ANSWERS..Quiz::MAX_ANSWERS).to_a %>
 	</div>
+	<div class="field" >
+		<%= f.label :course_id, "Select the course" %><br />
+		<%= f.collection_select :course_id, current_user.courses_created_by_himself, :id, :name %>
+	</div>
+	
 	<div class="field">	
 		<%= f.radio_button :active, false, :checked => true %> 
 		<%= label :role, 'Keep quiz inactive' %><br />

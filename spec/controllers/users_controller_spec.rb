@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe UsersController do
   
-  before(:each) do
-    
-  end
-  
   describe "#new" do
     it "assigns a new user" do
       get(:new)

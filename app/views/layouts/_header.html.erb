@@ -5,7 +5,8 @@
 			<%= link_to "Sign up", new_user_path %> |
 			<%= link_to "Sign in", new_session_path %>
 		<% else %>
-			<%= link_to "Sign out", '/logout' %>
+			<%= link_to current_user.name, "/edit" %> | 
+			<%= link_to "Sign out", "/logout" %>
 		<% end %>
 	</p>
 </div>
