@@ -1,0 +1,9 @@
+<% if current_user %>
+	<% if current_user.teacher? %>
+		<%= link_to "New Course", new_user_course_path(current_user), :class => "teacher_link" %>
+		<%= link_to "New Quiz", new_user_quiz_path(current_user), :class => "teacher_link" %>
+	<% end %>
+	<%= link_to "My Quizzes", user_quizzes_path(current_user,), :class => "teacher_link" %>
+	<%= link_to "My Courses", user_courses_path(current_user), :class => "teacher_link" %>
+	<%= link_to "My School", school_path(current_user.school), :class => "teacher_link" %>
+<% end %>

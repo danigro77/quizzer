@@ -1,0 +1,53 @@
+<tr>
+	<th><%= quiz.name %></th>
+	
+	<td>
+		<% if current_user.is_allowed_to_edit_question?(quiz) %>
+			<%= link_to "Edit Question", edit_quiz_question_path(quiz, current_user.question_for_quiz(quiz)) %>
+		<% else %>
+			<%= link_to "New Question", new_quiz_question_path(quiz) %>
+		<% end %>
+	</td>
+	
+	<% if current_user.student? && quiz.taken?(current_user) %>
+		<td>
+			<% if quiz.active? && !quiz.taken?(current_user) %>
+				<%= link_to "Take Quiz", new_user_quiz_response_path(current_user, quiz) %>
+			<% elsif quiz.taken?(current_user) && quiz.active? %>
+				Quiz taken on <%= quiz.date %>
+			<% else %>
+				Quiz is locked
+			<% end %>
+		</td>
+		<td>
+			My score: <%= quiz.student_score(current_user) %>
+		</td>
+		<td>
+			<%= link_to "View questions again", user_quiz_path(current_user, quiz) %>
+		</td>
+		
+	<% elsif current_user.teacher? %>
+		<td>
+			<% if quiz.active? && quiz.all_questions_created? %>
+				<%= quiz.sum_all_taken_quizzes %> quizzes taken so far
+			<% elsif quiz.all_questions_created? %>
+				<%= link_to "Activate Quiz", activate_user_quiz_path(current_user, quiz), :method => :post %> 
+<!-- LATER: Check student commits-->
+			<% else %>
+				<%= quiz.status_questions %> submitted
+			<% end %>
+		</td>
+		<td>
+			<%= quiz.average_score %> class average
+		</td>	
+		<td>
+			<%= link_to "Excused persons", new_user_quiz_excuse_path(current_user, quiz) %>
+		</td>
+		<td>
+			<%= link_to "Edit quiz", edit_user_quiz_path(current_user, quiz) %>
+		</td>
+		<td>
+			<%= link_to "Delete quiz", user_quiz_path(current_user, quiz), :method => :delete %>
+		</td>
+	<% end %>
+</tr>
