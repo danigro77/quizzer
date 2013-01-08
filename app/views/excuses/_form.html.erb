@@ -1,0 +1,16 @@
+<%= form_for [current_user, @quiz, @excuse] do |f| %>
+
+	<%= render "layouts/error_messages", :object => @excuse %>
+
+	<div class="field" >
+		<%= f.label :user_id, "Select missing person" %><br />
+		<%= f.collection_select :user_id, @quiz.members, :id, :name %>
+	</div>	
+	<div class="field">	
+		<%= f.label :reason %><br />
+		<%= f.text_field :reason %>
+	</div>
+
+	<%= f.submit %>
+
+<% end %>
