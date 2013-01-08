@@ -1,0 +1,18 @@
+<h2>All Courses</h2>
+<div class="content_text">
+	<table>
+		<% @courses.each do |course| %>
+			<tr>
+				<th><%= link_to course.name, user_course_path(current_user, course) %></th>
+				<td>(<%= course.teacher.name %>)</td>
+				<td><%= course.description_short %></td>
+				<td><%= "#{course.start_date} - #{course.end_date}" %></td>
+				<td><%= link_to "Leave Course", leave_user_course_path(current_user, course), :method => :delete %></td>
+				<% if current_user.teacher? %>
+					<td><%= link_to "Edit Course", edit_user_course_path(current_user, course) %></td>
+					<td><%= link_to "Delete Course", user_course_path(current_user, course), :method => :delete %></td>
+				<% end %>
+			</tr>	
+		<% end %>
+	</table>
+</div>

@@ -1,0 +1,24 @@
+<%= form_for [current_user, @course] do |f| %>
+
+	<%= render "layouts/error_messages", :object => @course %>
+	
+	<div class="field">	
+		<%= f.label :name %><br />
+		<%= f.text_field :name %>
+	</div>
+	<div class="field">	
+		<%= f.label:description %><br />
+		<%= f.text_area :description %>
+	</div>
+	<div class="field">	
+		<%= f.label :start_date %><br />
+		<%= select_date Date.today, :prefix => :start_date %>
+	</div>
+	<div class="field">	
+		<%= f.label :end_date %><br />
+		<%= select_date Date.today, :prefix => :end_date %>
+	</div>
+
+	<%= f.submit %>
+
+<% end %>

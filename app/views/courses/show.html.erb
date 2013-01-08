@@ -1,0 +1,10 @@
+<h2><%= @course.name %></h2>
+
+<div class="content_text">
+	<table>
+		<% @course.quizzes.each do |quiz| %>
+			<%= render "layouts/quiz", :quiz => quiz %>
+		
+		<% end %>
+	</table>
+</div>
